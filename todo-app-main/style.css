@@ -1,1 +1,343 @@
+:root {
+  --bright-blue: hsl(220, 98%, 61%);
+  --check-background: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  --very-light-gray: hsl(0, 0%, 98%);
+  --very-light-grayish-blue: hsl(236, 33%, 92%);
+  --light-grayish-blue: hsl(233, 11%, 84%);
+  --dark-grayish-blue: hsl(236, 9%, 61%);
+  --very-dark-grayish-blue: hsl(235, 19%, 35%);
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  font-size: 18px;
+  font-family: "Josefin Sans", sans-serif;
+  background-color: var(--very-light-gray);
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Background Banner Styling - POPRAVLJEN Z-INDEX */
+.header-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  z-index: -1; /* Garancija da slika ostaje iza svega */
+  overflow: hidden;
+}
+
+.header-bg-wrapper picture,
+.header-bg-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Application Layout Container */
+.todo-panel {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 540px;
+  margin: 70px 24px 0 24px;
+}
+
+/* Header Alignment */
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  letter-spacing: 0.4em;
+  color: white;
+  font-weight: 700;
+}
+
+.moon-icon {
+  cursor: pointer;
+}
+
+/* Form Input Field */
+.input-field {
+  width: 100%;
+  height: 64px;
+  border-radius: 6px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
+}
+
+/* Omotač za krugove radi lakšeg hover efekta */
+.table-checked-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+
+.button-checked, .table-checked {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--very-light-grayish-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 24px;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+/* Sređen hover efekat sa gradijentom za krugove */
+.table-checked-wrapper:hover .table-checked:not(.checked-active),
+.button-checked:hover {
+  border: 1px solid transparent;
+  background-image: linear-gradient(white, white), var(--check-background);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+/* Stil kada je zadatak završen (Aktivni check krug) */
+.table-checked.checked-active {
+  background: var(--check-background) !important;
+  border: none !important;
+}
+
+.input-field input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1rem;
+  color: var(--very-dark-grayish-blue);
+}
+
+/* Main Todo Table View */
+#table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.3);
+}
+
+.table-field {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--very-light-grayish-blue);
+}
+
+.table-field p {
+  font-size: 1rem;
+  color: var(--very-dark-grayish-blue);
+  text-align: left;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+/* Precrtani tekst za završene zadatke */
+.text-strike {
+  text-decoration: line-through;
+  color: var(--light-grayish-blue) !important;
+}
+
+.delete-row {
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.table-field:hover .delete-row {
+  opacity: 1;
+}
+
+/* Dragging vizuelno stanje za drag-and-drop bonus */
+.todo-row.dragging {
+  opacity: 0.5;
+  background-color: var(--very-light-grayish-blue);
+}
+
+/* Control Row Styling */
+.todo {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 0.8rem;
+  color: var(--dark-grayish-blue);
+  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.3);
+}
+
+.todo-left-side {
+  display: flex;
+  gap: 4px;
+}
+
+.todo-filters {
+  display: flex;
+  gap: 18px;
+  font-weight: 700;
+}
+
+.paragraf {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.paragraf:hover {
+  color: var(--very-dark-grayish-blue);
+}
+
+.paragraf.active {
+  color: var(--bright-blue);
+}
+
+/* Footer & Explanatory Text */
+.drag {
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: var(--dark-grayish-blue);
+  text-align: center;
+}
+
+.attribution {
+  margin-top: 60px;
+  font-size: 11px;
+  text-align: center;
+  color: var(--dark-grayish-blue);
+}
+
+.attribution a {
+  color: var(--bright-blue);
+  text-decoration: none;
+}
+
+/* 📱 Responsive Mobile Rules (< 575px) */
+@media (max-width: 575px) {
+  .header-bg-wrapper {
+    height: 200px;
+  }
+  
+  .todo-panel {
+    margin-top: 48px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .todo {
+    position: relative;
+    margin-bottom: 80px;
+  }
+
+  .todo-filters {
+    position: absolute;
+    bottom: -66px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.2);
+  }
+}
+
+/* 🌙 DARK THEME PALETA BOJA (Dodato) */
+:root[data-theme="dark"] {
+  --very-light-gray: hsl(235, 21%, 11%);
+  --very-light-grayish-blue: hsl(235, 24%, 19%); 
+  --light-grayish-blue: hsl(234, 11%, 52%);      
+  --dark-grayish-blue: hsl(234, 39%, 85%);       
+  --very-dark-grayish-blue: hsl(236, 33%, 92%);  
+}
+
+:root[data-theme="dark"] .input-field,
+:root[data-theme="dark"] #table,
+:root[data-theme="dark"] .todo,
+:root[data-theme="dark"] .todo-filters {
+  background-color: hsl(235, 24%, 19%) !important;
+}
+
+:root[data-theme="dark"] .input-field input,
+:root[data-theme="dark"] .table-field p {
+  color: var(--dark-grayish-blue);
+}
+
+:root[data-theme="dark"] .table-field {
+  border-bottom: 1px solid hsl(235, 19%, 35%);
+}
+
+:root[data-theme="dark"] .table-checked {
+  background-color: hsl(235, 24%, 19%);
+  border-color: hsl(235, 19%, 35%);
+}
+
+:root[data-theme="dark"] .table-checked-wrapper:hover .table-checked:not(.checked-active) {
+  background-image: linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%)), var(--check-background);
+}
+
+/* Dinamička zamena pozadinske slike za Dark Mode */
+:root[data-theme="dark"] .header-bg-wrapper picture source {
+  srcset: url("https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/bg-desktop-dark.jpg");
+}
+:root[data-theme="dark"] .header-bg-wrapper picture img {
+  content: url("https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/bg-desktop-dark.jpg");
+}
+/* --- GLOBALNA POPRAVKA ZA INPUT (Kursor i veličina teksta) --- */
+.input-field input {
+  font-size: 1.1rem; /* Prilagođava veličinu teksta i visinu kursora */
+  line-height: 1.2;
+  caret-color: var(--bright-blue); /* Menja kursor u plavkastu boju iz tvojih promenljivih */
+}
+
+/* --- POPRAVKA ZA INPUT U TAMNOJ TEMI (Da pozadina i tekst budu tamni) --- */
+:root[data-theme="dark"] .input-field {
+  background-color: hsl(235, 24%, 19%) !important; /* Tamna pozadina oko unosa */
+}
+
+:root[data-theme="dark"] .input-field input {
+  background-color: transparent !important; /* Sprečava da input ostane beo */
+  color: var(--dark-grayish-blue) !important; /* Svetlo-sivi tekst u tamnoj temi */
+}
+
+/* Opciono: ako želiš da i placeholder tekst (Create a new todo...) bude tamniji u tamnoj temi */
+:root[data-theme="dark"] .input-field input::placeholder {
+  color: hsl(234, 11%, 52%);
+}
+
+/* Print Utilities */
+@media print {
+  .noprint {
+    display: none;
+  }
+}
