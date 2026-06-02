@@ -1,36 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="stylesheet" href="light.css">
   <title>Frontend Mentor | Todo app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 0.6875rem; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+  
+  <!-- POPRAVLJENO: Ispravni i kompletni linkovi za font Josefin Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://googleapis.com" rel="stylesheet">
 </head>
+
 <body>
+  <!-- Pozadinska slika sa dodatim ID oznakama za lakšu JS kontrolu -->
+  <div class="header-bg-wrapper">
+    <picture>
+      <source id="bg-source" media="(max-width: 575px)" srcset="https://github.com/zaklinaradivojevic/todo-app/main/images/bg-mobile-light.jpg?raw=true">
+      <img id="bg-img" src="https://github.com/zaklinaradivojevic/todo-app/main/images/bg-desktop-light.jpg?raw=true" alt="background-img">
+    </picture>
+  </div>
 
-  Todo
+  <!-- Glavni kontejner aplikacije -->
+  <main class="todo-panel">
+    <header class="todo-header">
+      <h1 class="title">Todo</h1>
+      <img class="moon-icon" src="https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/icon-moon.svg" alt="Toggle Theme">
+    </header>
 
-  <!-- Add dynamic number --> items left
+    <!-- Polje za unos novih beležaka -->
+    <div class="input-field">
+      <div class="button-checked">
+        <img class="checked-btn" src="https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/icon-check.svg" alt="checked-icon">
+      </div>
+      <input id="myInput" type="text" placeholder="Create a new todo...">
+    </div>
 
-  All
-  Active 
-  Completed
+    <!-- Tabela sa zadacima -->
+    <table id="table">
+      <tbody id="table-body">
+        <tr class="todo-row" draggable="true">
+          <td>
+            <div class="table-field">
+              <div class="table-checked-wrapper">
+                <div class="table-checked">
+                  <img class="checked-img" src="https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/icon-check.svg" alt="checked-icon" style="display: none;">
+                </div>
+              </div>
+              <p>Complete online JavaScript course</p>
+              <img class="delete-row" src="https://raw.githubusercontent.com/zaklinaradivojevic/Todo-app-2/main/todo-app-main/images/icon-cross.svg" alt="Delete todo">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  Clear Completed
+    <!-- Kontrolna tabla -->
+    <div class="todo" id="todo">
+      <div class="todo-left-side">
+        <span id="dinamicNum">5</span>
+        <span id="leftItems">items left</span>
+      </div>
+      <div class="todo-filters">
+        <p class="paragraf active" id="all">All</p>
+        <p class="paragraf" id="activep">Active</p>
+        <p class="paragraf" id="complited">Completed</p>
+      </div>
+      <p class="paragraf clear-btn" id="clear">Clear Completed</p>
+    </div>
 
-  Drag and drop to reorder list
+    <p class="drag">Drag and drop to reorder list</p>
 
-  <footer class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </footer>
+    <footer class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noopener noreferrer">Frontend Mentor</a>.
+      Coded by <a href="https://github.com/zaklinaradivojevic" target="_blank" rel="noopener noreferrer">Žaklina Radivojević</a>.
+    </footer>
+  </main>
+
+  <script defer src="index.js"></script>
 </body>
+
 </html>
